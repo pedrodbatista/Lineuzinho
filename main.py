@@ -10,7 +10,7 @@ def start(update, context):
 
 def contatinhos(update, context):
     update.message.reply_text("CHAMA NO CONTATINHO")
-    update.message.reply_text(CONTATINHOS_SHEET_LINK)
+    update.message.reply_text(CONTATINHOS_SHEET_LINK, disable_web_page_preview=True)
 
 def main():
     logger = logging.getLogger(__name__)
