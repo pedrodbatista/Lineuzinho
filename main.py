@@ -1,10 +1,14 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
+import random
 
 API_TOKEN = "1700885261:AAETCokNpqNDk44x3d5XASfnQfzxiNOKWfI"
 
 CONTATINHOS_SHEET_LINK = "https://docs.google.com/spreadsheets/d/1Kfy-tCDA_UggPUOaYs1w9oN_DtuL6GBWPyCmcl_R3f8/edit?usp=sharing"
-GITHUB_REPO_LINK = "https://github.com/benireni/Lineuzinho"
+GITHUB_REPO_LINK = "https://github.com/lineuzinho-icmc/lineuzinho"
+SAVED_DOCS_LINK = "https://t.me/docs21"
+
+DOCS_CHANNEL_MESSAGES_MAX = 800
 
 def start(update, context):
     update.message.reply_text("pó fala meu rei")
@@ -15,6 +19,16 @@ def contatinhos(update, context):
 
 def help(update, context):
     update.message.reply_text(GITHUB_REPO_LINK)
+
+def save(update, context):
+    originalMessage = update.message.reply_to_message
+    if not originalMessage or not originalMessage.text:
+        update.message.reply_text("faz o comando respondendo alguma coisa...", parse_mode="Markdown")
+
+    context.bot.forwardMessage("@docs21", update.effective_chat.id, originalMessage.message_id)
+
+def docsChannel(update, context):
+    update.message.reply_text(SAVED_DOCS_LINK)
 
 def newMembersGreetings(update, context):
     newMembers = update.message.new_chat_members
@@ -38,6 +52,8 @@ def main():
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("save", save))
+    dp.add_handler(CommandHandler("docs", docsChannel))
     dp.add_handler(CommandHandler("contatinhos", contatinhos))
     dp.add_handler(CommandHandler("help", help))
 
