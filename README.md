@@ -1,5 +1,5 @@
-## Lineuzinho ##
+# Lineuzinho #
 Bot da BCC021 :D
 
-# Commands #
+## Commands ##
 - /contatinhos -> link dos contatinhos da 21
